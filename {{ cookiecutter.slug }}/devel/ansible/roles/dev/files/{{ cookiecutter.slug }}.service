@@ -1,0 +1,15 @@
+[Unit]
+Description={{ cookiecutter.name }}
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Environment=FLASK_APP=/home/vagrant/{{ cookiecutter.slug }}/{{ cookiecutter.pkg_name }}/app.py
+Environment=FLASK_CONFIG=/home/vagrant/{{ cookiecutter.slug }}.cfg
+Environment=FLASK_DEBUG=1
+User=vagrant
+WorkingDirectory=/home/vagrant/{{ cookiecutter.slug }}
+ExecStart=poetry run flask run -h 0.0.0.0
+
+[Install]
+WantedBy=multi-user.target

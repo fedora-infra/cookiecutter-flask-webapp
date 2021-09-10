@@ -1,0 +1,13 @@
+# .bashrc
+
+export FLASK_APP=/home/vagrant/{{ cookiecutter.slug }}/{{ cookiecutter.pkg_name }}/app.py
+export FLASK_CONFIG=/home/vagrant/{{ cookiecutter.slug }}.cfg
+export PATH=$PATH:/home/vagrant/.local/bin
+
+alias {{ cookiecutter.slug }}-start="sudo systemctl start {{ cookiecutter.slug }}.service && echo '{{ cookiecutter.name }} is running on http://{{ cookiecutter.slug }}.test:5000'"
+alias {{ cookiecutter.slug }}-unit-tests="poetry run pytest -vv --cov {{ cookiecutter.pkg_name }}/ --cov-report term-missing"
+alias {{ cookiecutter.slug }}-logs="sudo journalctl -u {{ cookiecutter.slug }}.service"
+alias {{ cookiecutter.slug }}-restart="sudo systemctl restart {{ cookiecutter.slug }}.service && echo '{{ cookiecutter.name }} is running on http://{{ cookiecutter.slug }}.test:5000'"
+alias {{ cookiecutter.slug }}-stop="sudo systemctl stop {{ cookiecutter.slug }}.service && echo '{{ cookiecutter.name }} service stopped'"
+
+cd "{{ cookiecutter.slug }}"

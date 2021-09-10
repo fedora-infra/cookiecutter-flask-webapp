@@ -1,0 +1,57 @@
+---
+- name: Install RPM packages
+  dnf:
+      name:
+        - git
+        - vim
+        - poetry
+        - python3-flask
+        - python3-pip
+        - tox
+        - fedora-messaging
+      state: present
+
+- name: install python deps with poetry
+  shell: poetry install
+  become: yes
+  become_user: vagrant
+  args:
+    chdir: /home/vagrant/{{ cookiecutter.slug }}/
+
+- name: Install the .bashrc
+  copy:
+      src: bashrc
+      dest: /home/vagrant/.bashrc
+      mode: 0644
+      owner: vagrant
+      group: vagrant
+
+- name: Install the configuration file
+  copy:
+      src: /home/vagrant/{{ cookiecutter.slug }}/{{ cookiecutter.slug }}.cfg.default
+      dest: /home/vagrant/{{ cookiecutter.slug }}.cfg
+      remote_src: yes
+      owner: vagrant
+      group: vagrant
+
+- name: compile the translations
+  shell:
+    cmd: poetry run pybabel compile -d /home/vagrant/{{ cookiecutter.slug }}/{{ cookiecutter.pkg_name }}/translations
+    removes: /home/vagrant/{{ cookiecutter.slug }}/{{ cookiecutter.pkg_name }}/translations/messages.pot
+  become: yes
+  become_user: vagrant
+
+- name: Install the systemd unit files for the service
+  copy:
+      src: {{ cookiecutter.slug }}.service
+      dest: /etc/systemd/system/{{ cookiecutter.slug }}.service
+      mode: 0644
+
+- name: Start the service using systemd
+  systemd:
+    state: started
+    name: {{ cookiecutter.slug }}
+    daemon_reload: yes
+    enabled: yes
+
+- import_tasks: rabbitmq.yml

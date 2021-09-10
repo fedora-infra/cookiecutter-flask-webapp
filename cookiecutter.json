@@ -1,0 +1,9 @@
+{
+    "name": "Fedora Application",
+    "slug": "{{ cookiecutter.name|lower|replace(' ', '-') }}",
+    "pkg_name": "{{ cookiecutter.slug|replace('-', '_') }}",
+    "camel_name": "{{ cookiecutter.name|replace(' ', '') }}",
+    "url": "http://github.com/fedora-infra/{{ cookiecutter.slug }}",
+    "year": "{% now 'utc', '%Y' %}",
+    "_extensions": ["jinja2_time.TimeExtension", "cookiecutter.extensions.RandomStringExtension"]
+}
