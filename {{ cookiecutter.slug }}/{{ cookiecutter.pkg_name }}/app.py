@@ -1,6 +1,7 @@
 import os
 from logging.config import dictConfig
 
+import flask_talisman
 from flask import Flask
 from flask_healthz import healthz
 from flask_wtf.csrf import CSRFProtect
@@ -13,6 +14,9 @@ from {{ cookiecutter.pkg_name }}.views import blueprint
 
 # Forms
 csrf = CSRFProtect()
+
+# Security headers
+talisman = flask_talisman.Talisman()
 
 
 def create_app(config=None):
@@ -45,6 +49,24 @@ def create_app(config=None):
     # Database
     db.init_app(app)
     migrate.init_app(app, directory=os.path.join(app.root_path, "migrations"))
+
+    # Security
+    talisman.init_app(
+        app,
+        force_https=app.config.get("SESSION_COOKIE_SECURE", True),
+        session_cookie_secure=app.config.get("SESSION_COOKIE_SECURE", True),
+        frame_options=flask_talisman.DENY,
+        referrer_policy="same-origin",
+        content_security_policy={
+            "default-src": ["'self'", "apps.fedoraproject.org"],
+            "script-src": [
+                # https://csp.withgoogle.com/docs/strict-csp.html#example
+                "'strict-dynamic'",
+            ],
+            # "img-src": ["'self'", "seccdn.libravatar.org"],
+        },
+        content_security_policy_nonce_in=["script-src"],
+    )
 
     # Register views
     app.register_blueprint(blueprint)
