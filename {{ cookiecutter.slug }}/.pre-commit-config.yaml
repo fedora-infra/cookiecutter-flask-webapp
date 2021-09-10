@@ -35,7 +35,7 @@ repos:
     rev: 3f92957
     hooks:
       - id: rstcheck
-        args: ["-r", "docs"]
+        exclude: "news/_template.rst"
         additional_dependencies: [sphinx]
 
 

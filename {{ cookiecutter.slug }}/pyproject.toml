@@ -37,7 +37,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.2"
 flask = "^1.1"
 flask-wtf = "^0.14"
 flask-babel = "^1.0.0"
@@ -61,6 +61,7 @@ coverage = {extras = ["toml"], version = "^5.2"}
 liccheck = "^0.6.0"
 sphinx = "^3.0"
 beautifulsoup4 = "^4.9"
+pre-commit = "^2.13.0"
 
 [tool.poetry.extras]
 deploy = ["gunicorn"]
@@ -89,7 +90,6 @@ branch = true
 source = ["{{ cookiecutter.pkg_name }}"]
 
 [tool.coverage.paths]
-branch = true
 source = ["{{ cookiecutter.pkg_name }}"]
 
 [tool.coverage.report]

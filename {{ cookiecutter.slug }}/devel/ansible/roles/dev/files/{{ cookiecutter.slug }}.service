@@ -7,6 +7,7 @@ Wants=network-online.target
 Environment=FLASK_APP=/home/vagrant/{{ cookiecutter.slug }}/{{ cookiecutter.pkg_name }}/app.py
 Environment=FLASK_CONFIG=/home/vagrant/{{ cookiecutter.slug }}.cfg
 Environment=FLASK_DEBUG=1
+Environment=PYTHONUNBUFFERED=1
 User=vagrant
 WorkingDirectory=/home/vagrant/{{ cookiecutter.slug }}
 ExecStart=poetry run flask run -h 0.0.0.0
