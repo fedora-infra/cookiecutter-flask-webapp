@@ -1,0 +1,34 @@
+pull_request_rules:
+
+- name: Automatic merge on approval
+  actions:
+    merge:
+      method: merge
+      rebase_fallback: null
+      strict: true
+  conditions:
+  - label!=no-mergify
+  - approved-reviews-by=@fedora-infra/team
+  - check-success=Checks
+  - check-success=Documentation
+  - check-success=Unit tests (py36)
+  - check-success=Unit tests (py37)
+  - check-success=Unit tests (py38)
+  - check-success=Unit tests (py39)
+
+- name: Automatic merge Dependabot PRs
+  actions:
+    merge:
+      method: rebase
+      rebase_fallback: null
+      strict: true
+  conditions:
+  - label!=no-mergify
+  - author=dependabot[bot]
+  - approved-reviews-by=github-actions[bot]
+  - check-success=Checks
+  - check-success=Documentation
+  - check-success=Unit tests (py36)
+  - check-success=Unit tests (py37)
+  - check-success=Unit tests (py38)
+  - check-success=Unit tests (py39)
