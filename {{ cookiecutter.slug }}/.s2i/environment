@@ -1,0 +1,2 @@
+APP_MODULE=fedora_application.app:app
+UPGRADE_PIP_TO_LATEST=true
