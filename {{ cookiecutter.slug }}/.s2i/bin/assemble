@@ -11,14 +11,6 @@
 
 set -e
 
-install_tool poetry
-
-echo "---> Upgrade Poetry's pip to the latest version ..."
-$VENV_DIR/bin/pip install --upgrade pip
-
-echo "---> Installing application and dependencies ..."
-poetry install --no-dev
-
 echo "---> Compiling translations ..."
 pybabel compile -d {{ cookiecutter.pkg_name }}/translations
 
