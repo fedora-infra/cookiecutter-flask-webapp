@@ -8,7 +8,7 @@ from flask_wtf.csrf import CSRFProtect
 from whitenoise import WhiteNoise
 
 from {{ cookiecutter.pkg_name }}.database import db, migrate
-from {{ cookiecutter.pkg_name }}.l10n import babel
+from {{ cookiecutter.pkg_name }}.l10n import babel, store_locale
 from {{ cookiecutter.pkg_name }}.views import blueprint
 
 
@@ -43,6 +43,7 @@ def create_app(config=None):
 
     # Extensions
     babel.init_app(app)
+    app.before_request(store_locale)
     app.jinja_env.add_extension("jinja2.ext.i18n")
     csrf.init_app(app)
 
