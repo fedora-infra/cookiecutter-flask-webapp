@@ -34,3 +34,14 @@ Here are the libraries and services that are integrated:
 - Github CI and [CentOS CI](https://ci.centos.org/)
 - [Dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/about-dependabot-version-updates)
 - [Pre-Commit](https://pre-commit.com/)
+
+
+## Testing
+
+There are some checks to make sure the templated app pass its own unit tests.
+You can run those checks with:
+
+```
+pytest -s tests
+```
+
