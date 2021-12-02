@@ -10,7 +10,7 @@ def test_healthz_liveness(client):
     """Test the /healthz/live check endpoint"""
     response = client.get("/healthz/live")
     assert response.status_code == 200
-    assert response.data == b"OK\n"
+    assert response.json == {"status": 200, "title": "OK"}
 
 
 def test_healthz_readiness_ok(client):
@@ -18,7 +18,7 @@ def test_healthz_readiness_ok(client):
     response = client.get("/healthz/ready")
     print(response.data)
     assert response.status_code == 200
-    assert response.data == b"OK\n"
+    assert response.json == {"status": 200, "title": "OK"}
 
 
 def test_healthz_readiness_unavailable(client, mocker):
@@ -29,7 +29,7 @@ def test_healthz_readiness_unavailable(client, mocker):
     )
     response = client.get("/healthz/ready")
     assert response.status_code == 503
-    assert response.data == b"Can't connect to the database\n"
+    assert response.json == {"status": 503, "title": "Can't connect to the database"}
 
 
 def test_healthz_readiness_needs_upgrade(client):
@@ -45,4 +45,7 @@ def test_healthz_readiness_needs_upgrade(client):
     flask_migrate.stamp(revision=base_rev)
     response = client.get("/healthz/ready")
     assert response.status_code == 503
-    assert response.data == b"The database schema needs to be updated\n"
+    assert response.json == {
+        "status": 503,
+        "title": "The database schema needs to be updated",
+    }
