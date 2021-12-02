@@ -21,11 +21,11 @@ def test_healthz_readiness_ok(client):
     assert response.json == {"status": 200, "title": "OK"}
 
 
-def test_healthz_readiness_unavailable(client, mocker):
+def test_healthz_readiness_unavailable(client, mocker, tmpdir):
     """Test the /healthz/ready check endpoint when the DB is not ready"""
     db.drop_all()
     mocker.patch.dict(
-        current_app.config, {"SQLALCHEMY_DATABASE_URI": "sqlite:////nowhere"}
+        current_app.config, {"SQLALCHEMY_DATABASE_URI": f"sqlite:///{tmpdir}/new.db"}
     )
     response = client.get("/healthz/ready")
     assert response.status_code == 503
@@ -49,3 +49,17 @@ def test_healthz_readiness_needs_upgrade(client):
         "status": 503,
         "title": "The database schema needs to be updated",
     }
+
+
+def test_healthz_readiness_exception(client, mocker):
+    """Test the /healthz/ready check endpoint when the DB is wrong"""
+    mocker.patch.dict(
+        current_app.config, {"SQLALCHEMY_DATABASE_URI": "sqlite:////does/not/exist"}
+    )
+    response = client.get("/healthz/ready")
+    assert response.status_code == 503
+    assert response.json["status"] == 503
+    assert response.json["title"].startswith(
+        "Can't get the database revision: (sqlite3.OperationalError) "
+        "unable to open database file"
+    )
