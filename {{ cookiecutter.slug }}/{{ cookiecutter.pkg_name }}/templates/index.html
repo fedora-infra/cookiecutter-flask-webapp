@@ -1,7 +1,5 @@
-{% raw %}
+{% raw -%}
 {% extends "main.html" %}
-
-{% block title %}Fedora Application{% endblock %}
 
 {% block content %}
     {{ super() }}
@@ -10,10 +8,14 @@
         <div class="container section">
             <div class="row">
                 <div class="col">
-                    Welcome to...
+                    {{
+                    {%- endraw -%}
+                    _("Welcome to {{ cookiecutter.name }}")
+                    {%- raw -%}
+                    }}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-{% endraw %}
+{%- endraw -%}
