@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       # - name: Install krb5-devel for python-gssapi
       #   run: sudo apt-get install krb5-config libkrb5-dev
@@ -39,7 +39,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install krb5-devel for python-gssapi
         run: sudo apt-get install krb5-config libkrb5-dev
@@ -84,3 +84,4 @@ jobs:
           - py37
           - py38
           - py39
+          - py310
