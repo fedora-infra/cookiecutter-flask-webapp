@@ -1,4 +1,3 @@
-{% raw %}
 """${message}
 
 Revision ID: ${up_revision}
@@ -6,9 +5,12 @@ Revises: ${down_revision | comma,n}
 Create Date: ${create_date}
 
 """
+
 import sqlalchemy as sa
 from alembic import op
+from {{ cookiecutter.pkg_name }}.database import is_sqlite, exists_in_db
 ${imports if imports else ""}
+
 
 # revision identifiers, used by Alembic.
 revision = ${repr(up_revision)}
@@ -23,4 +25,3 @@ def upgrade():
 
 def downgrade():
     ${downgrades if downgrades else "pass"}
-{% endraw %}

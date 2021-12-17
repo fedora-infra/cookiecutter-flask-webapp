@@ -1,9 +1,7 @@
-import flask_migrate
-import pytest
-from alembic.script import ScriptDirectory
 from flask import current_app
+from sqlalchemy_helpers.manager import DatabaseStatus
 
-from {{ cookiecutter.pkg_name }}.database import db, get_current_revision
+from {{ cookiecutter.pkg_name }}.database import db
 
 
 def test_healthz_liveness(client):
@@ -23,7 +21,7 @@ def test_healthz_readiness_ok(client):
 
 def test_healthz_readiness_unavailable(client, mocker, tmpdir):
     """Test the /healthz/ready check endpoint when the DB is not ready"""
-    db.drop_all()
+    db.manager.drop()
     mocker.patch.dict(
         current_app.config, {"SQLALCHEMY_DATABASE_URI": f"sqlite:///{tmpdir}/new.db"}
     )
@@ -32,17 +30,11 @@ def test_healthz_readiness_unavailable(client, mocker, tmpdir):
     assert response.json == {"status": 503, "title": "Can't connect to the database"}
 
 
-def test_healthz_readiness_needs_upgrade(client):
+def test_healthz_readiness_needs_upgrade(client, mocker):
     """Test the /healthz/ready check endpoint when the DB schema is old"""
-    # Find the earliest revision
-    config = current_app.extensions["migrate"].migrate.get_config()
-    script_dir = ScriptDirectory.from_config(config)
-    base_rev = script_dir.get_base()
-    current_rev = get_current_revision()
-    if current_rev == base_rev:
-        pytest.skip("Only one DB revision at the moment.")
-    # Stamp it.
-    flask_migrate.stamp(revision=base_rev)
+    mocker.patch.object(
+        db.manager, "get_status", return_value=DatabaseStatus.UPGRADE_AVAILABLE
+    )
     response = client.get("/healthz/ready")
     assert response.status_code == 503
     assert response.json == {
@@ -60,6 +52,6 @@ def test_healthz_readiness_exception(client, mocker):
     assert response.status_code == 503
     assert response.json["status"] == 503
     assert response.json["title"].startswith(
-        "Can't get the database revision: (sqlite3.OperationalError) "
+        "Can't get the database status: (sqlite3.OperationalError) "
         "unable to open database file"
     )

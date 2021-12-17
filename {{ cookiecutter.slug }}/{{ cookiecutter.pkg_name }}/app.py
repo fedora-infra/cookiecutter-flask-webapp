@@ -7,7 +7,7 @@ from flask_healthz import healthz
 from flask_wtf.csrf import CSRFProtect
 from whitenoise import WhiteNoise
 
-from {{ cookiecutter.pkg_name }}.database import db, migrate
+from {{ cookiecutter.pkg_name }}.database import db
 from {{ cookiecutter.pkg_name }}.l10n import babel, store_locale
 from {{ cookiecutter.pkg_name }}.utils import import_all
 from {{ cookiecutter.pkg_name }}.views import blueprint
@@ -50,7 +50,6 @@ def create_app(config=None):
 
     # Database
     db.init_app(app)
-    migrate.init_app(app, directory=os.path.join(app.root_path, "migrations"))
 
     # Security
     talisman.init_app(

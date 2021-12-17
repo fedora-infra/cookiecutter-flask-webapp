@@ -1,11 +1,13 @@
-from {{ cookiecutter.pkg_name }}.database import db
+from sqlalchemy import Column, Integer, Unicode
+
+from {{ cookiecutter.pkg_name }}.database import Base
 
 
-class User(db.Model):
+class User(Base):
 
     __tablename__ = "users"
 
-    id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column(db.Unicode(254), index=True, unique=True, nullable=False)
-    full_name = db.Column(db.Unicode(254), nullable=False)
-    timezone = db.Column(db.Unicode(127), nullable=True)
+    id = Column("id", Integer, primary_key=True)
+    name = Column(Unicode(254), index=True, unique=True, nullable=False)
+    full_name = Column(Unicode(254), nullable=False)
+    timezone = Column(Unicode(127), nullable=True)

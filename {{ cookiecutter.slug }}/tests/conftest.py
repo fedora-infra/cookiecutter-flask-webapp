@@ -1,6 +1,5 @@
 import os
 
-import flask_migrate
 import pytest
 
 from {{ cookiecutter.pkg_name }}.app import create_app
@@ -15,8 +14,7 @@ def app(tmpdir):
     db_path = os.path.join(tmpdir, "database.sqlite")
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
     with app.app_context():
-        db.create_all()
-        flask_migrate.stamp()
+        db.manager.create()
     return app
 
 
