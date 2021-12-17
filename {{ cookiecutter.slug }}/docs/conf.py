@@ -44,6 +44,7 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
+    "myst_parser",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -87,6 +88,13 @@ html_static_path = ["_static"]
 
 # -- Extension configuration -------------------------------------------------
 
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
+
+
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
@@ -109,8 +117,10 @@ def run_apidoc(_):
             "-f",
             "-o",
             os.path.join(topdir, "docs", "_source"),
+            "-T",
+            "-e",
+            "-M",
             os.path.join(topdir, "{{ cookiecutter.pkg_name }}"),
-            os.path.join(topdir, "{{ cookiecutter.pkg_name }}", "tests"),
         ]
     )
 

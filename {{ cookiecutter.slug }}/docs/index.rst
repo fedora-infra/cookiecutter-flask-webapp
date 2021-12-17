@@ -1,8 +1,5 @@
-=======================================
-{{ cookiecutter.name }}'s documentation
-=======================================
-
-Describe {{ cookiecutter.name }} here.
+.. include:: ../README.md
+   :parser: myst_parser.sphinx_
 
 
 .. Release Notes
@@ -45,4 +42,4 @@ Describe {{ cookiecutter.name }} here.
    :maxdepth: 2
    :caption: Module Documentation
 
-   _source/modules
+   _source/{{ cookiecutter.pkg_name }}
