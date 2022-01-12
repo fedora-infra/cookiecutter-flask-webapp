@@ -22,6 +22,8 @@ class Templated:
 
     def make_git_repo(self):
         self.run(["git", "init", "."])
+        self.run(["git", "config", "user.name", "Tests"])
+        self.run(["git", "config", "user.email", "tests@example.com"])
         self.run(["git", "add", "."])
         self.run(["git", "commit", "-m", "initial commit"])
 
