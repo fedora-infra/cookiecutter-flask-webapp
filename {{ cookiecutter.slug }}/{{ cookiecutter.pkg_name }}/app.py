@@ -9,6 +9,7 @@ from whitenoise import WhiteNoise
 
 from {{ cookiecutter.pkg_name }}.database import db, migrate
 from {{ cookiecutter.pkg_name }}.l10n import babel, store_locale
+from {{ cookiecutter.pkg_name }}.utils import import_all
 from {{ cookiecutter.pkg_name }}.views import blueprint
 
 
@@ -70,6 +71,7 @@ def create_app(config=None):
     )
 
     # Register views
+    import_all("{{ cookiecutter.pkg_name }}.views")
     app.register_blueprint(blueprint)
     app.register_blueprint(healthz, url_prefix="/healthz")
 
