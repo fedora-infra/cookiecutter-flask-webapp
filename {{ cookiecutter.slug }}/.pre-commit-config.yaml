@@ -37,5 +37,5 @@ repos:
     hooks:
       - id: rstcheck
         exclude: "news/_template.rst"
-        args: ["-r", "docs", "--ignore-directives", "automodule"]
+        args: ["--ignore-directives=automodule"]
         additional_dependencies: [sphinx]
