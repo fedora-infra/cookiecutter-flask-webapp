@@ -1,13 +1,10 @@
-default_language_version:
-  python: python3.6
-
 repos:
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.29.1
     hooks:
       - id: pyupgrade
         args:
-          - --py36-plus
+          - --py38-plus
 
   # https://black.readthedocs.io/en/stable/integrations/source_version_control.html
   - repo: https://github.com/psf/black

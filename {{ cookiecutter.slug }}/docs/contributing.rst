@@ -65,7 +65,7 @@ Guidelines
 
 Python Support
 --------------
-{{ cookiecutter.name }} supports Python 3.6 or greater. This is automatically enforced by the
+{{ cookiecutter.name }} supports Python 3.8 or greater. This is automatically enforced by the
 continuous integration (CI) suite.
 
 

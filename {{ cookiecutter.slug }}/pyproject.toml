@@ -29,8 +29,6 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -38,7 +36,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.8.0"
 flask = "^2.0"
 flask-wtf = "^0.14"
 flask-babel = "^1.0"
@@ -83,7 +81,7 @@ lines_after_imports = 2
 force_alphabetical_sort_within_sections = true
 
 [tool.black]
-target-version = ["py36"]
+target-version = ["py38"]
 
 [tool.pytest.ini_options]
 testpaths = [
