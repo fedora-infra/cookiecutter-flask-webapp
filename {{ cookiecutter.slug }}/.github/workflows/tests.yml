@@ -30,6 +30,27 @@ jobs:
       - name: Run pre-commit checks
         run: pre-commit run --all-files
 
+
+  licenses:
+    name: Licenses
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install krb5-devel for python-gssapi
+        run: sudo apt-get install krb5-config libkrb5-dev
+
+      - name: Install tox
+        run: pip install tox
+
+      - name: Check licenses
+        run: tox -e licenses
+
   docs:
     name: Documentation
     runs-on: ubuntu-latest
