@@ -7,8 +7,8 @@ Vagrant.configure(2) do |config|
   config.hostmanager.manage_guest = true
 
   config.vm.define "{{ cookiecutter.slug }}" do |{{ cookiecutter.slug }}|
-    {{ cookiecutter.slug }}.vm.box_url = "https://download.fedoraproject.org/pub/fedora/linux/releases/34/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-34-1.2.x86_64.vagrant-libvirt.box"
-    {{ cookiecutter.slug }}.vm.box = "f34-cloud-libvirt"
+    {{ cookiecutter.slug }}.vm.box_url = "https://download.fedoraproject.org/pub/fedora/linux/releases/36/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-36-1.5.x86_64.vagrant-libvirt.box"
+    {{ cookiecutter.slug }}.vm.box = "f36-cloud-libvirt"
     {{ cookiecutter.slug }}.vm.hostname = "{{ cookiecutter.slug }}.test"
 
     {{ cookiecutter.slug }}.vm.synced_folder '.', '/vagrant', disabled: true
