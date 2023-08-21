@@ -32,7 +32,7 @@ Here are the libraries and services that are integrated:
   and [rstcheck](https://github.com/myint/rstcheck)
 - [Mergify](https://mergify.io/)
 - Github CI and [CentOS CI](https://ci.centos.org/)
-- [Dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/about-dependabot-version-updates)
+- [Renovate](https://github.com/apps/renovate)
 - [Pre-Commit](https://pre-commit.com/)
 
 
